@@ -1,5 +1,0 @@
-<div class="t_fsz">
-<table cellspacing="0" cellpadding="0">
-<cut>
-</div>
-<getitem>
