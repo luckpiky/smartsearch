@@ -2,13 +2,13 @@ document.write('<div align="center">');
 document.write('<span class="index">');
 document.write('VeryCheck');
 document.write('&nbsp;');
-document.write('<a href="index.html">Ê×Ò³</a>');
+document.write('<a href="article_list_1.html">é¦–é¡µ</a>');
 document.write('&nbsp;');
-document.write('<a href="">AndroidÆ½°å</a>');
+document.write('<a href="article_list_androidpad_1.html">Androidå¹³æ¿</a>');
 document.write('&nbsp;');
-document.write('<a href="">WindowsÆ½°å</a>');
+document.write('<a href="article_list_windowspad_1.html">Windowså¹³æ¿</a>');
 document.write('&nbsp;');
-document.write('<a href="">iPad</a>');
+document.write('<a href="article_list_ipad_1.html">iPad</a>');
 document.write('</div>');
 
 

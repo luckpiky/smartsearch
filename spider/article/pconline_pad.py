@@ -24,6 +24,7 @@ class ArticlePconlinePad():
         self.page = ""
         self.vcodec = "gbk"
         self.site = '太平洋电脑网'
+        self.iname = 'androidpad'
         return
 
     # 获取列表页上的文章标题和url

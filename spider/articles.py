@@ -7,6 +7,10 @@ import time
 from spider.models import *
 from spider.article.zol_pad import *
 from spider.article.pconline_pad import *
+from django.core.paginator import *
+from django.template.loader import get_template
+from django.template import Context
+from config.settings import *
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -14,13 +18,23 @@ sys.setdefaultencoding('utf-8')
 class Article():
   def __init__(self):
     self.node_list = []
-    self.MAX_READ_PERNODE = 25
+    self.MAX_READ_PERNODE = 30
     self.MAX_DESCRIPTION = 100
     return
+
+  def getTypeIdByIname(self, iname):
+    types = SmtArticleType.objects.filter(iname=iname).all()
+    if None == types or len(types) == 0:
+      return -1
+    return types[0].id
 
   def writeArticle(self, title, url, content, node):
     article = SmtArticle()
    
+    typeid = self.getTypeIdByIname(node.iname)
+    if -1 != typeid:
+      article.type_id = typeid
+
     article.title = title.encode('utf-8' )
     article.url = url
     article.content = removeScript(content)
@@ -100,24 +114,65 @@ class ArticleHtmlProc():
     self.COUNT_PER_PAGE = 10
     return
 
-  def createListPage(self):
+  def createListPage(self, list_type):
     c = 0
+    page_count = 0
     page = 1
-    rst = SmtArticle.objects.order_by("-id").all()
-    for item in rst:
-      if 0 == c:
-        print "page ",page,":"
-      print item.id,item.title
-      c = c + 1
-      if c == self.COUNT_PER_PAGE:
-        c = 0
-        page = page + 1
+    rst = None
+    file_name_pre = ""
+
+    if 'all' == list_type:
+      rst = SmtArticle.objects.order_by("-id").all()
+      file_name_pre = 'article_list_'
+    else:
+      t = Article()
+      typeid = t.getTypeIdByIname(list_type)
+      rst = SmtArticle.objects.filter(type=typeid).order_by("-id").all()
+      file_name_pre = 'article_list_' + list_type + '_'
+    if None == rst or len(rst) == 0:
+      return
+    page_count = len(rst) / self.COUNT_PER_PAGE
+    if len(rst) % self.COUNT_PER_PAGE > 0:
+      page_count = page_count + 1
+    print 'total page:',page_count
+
+    pages = []
+    for page in range(1, page_count + 1):
+      pages.append(page)
+    for page in range(1, page_count + 1):
+      paginator = Paginator(rst, self.COUNT_PER_PAGE)
+      articles = paginator.page(page)
+      first_page = 1
+      last_page = page_count
+      pre_page = page - 1
+      if pre_page == 0:
+        pre_page = 1
+      next_page = page + 1
+      if next_page > page_count:
+        next_page = page_count
+      #print page,":"
+      #for t in articles:
+      #  print t.title
+      t = get_template('articles_list.html')
+      html = t.render(Context({'articles':articles, 'pages':pages, 'first_page':first_page, 'pre_page':pre_page, 'next_page':next_page, 'last_page':last_page}))
+
+      file_name = STATIC_ROOT + file_name_pre + str(page) + '.html'
+      fp = open(file_name, 'w')
+      fp.write(html)
+      fp.close()
+      print 'create',file_name,'ok'
     return
 
   def createContentPage(self):
     rst = SmtArticle.objects.all()
     for item in rst:
-      print item.id,item.title
+      t = get_template('article.html')
+      html = t.render(Context({'article':item}))
+      file_name = STATIC_ROOT + 'article_' + str(item.id) + '.html'
+      fp = open(file_name, 'w')
+      fp.write(html)
+      fp.close()
+      print 'create',item.title,file_name,'ok'
     return
 
 
@@ -133,5 +188,8 @@ def get_article_htmls():
   print "get article html"
   a = ArticleHtmlProc()
   a.createContentPage()
-  a.createListPage()
+  a.createListPage('all')
+  rst = SmtArticleType.objects.all()
+  for t in rst:
+    a.createListPage(t.iname)
   return

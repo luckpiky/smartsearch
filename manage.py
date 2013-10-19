@@ -11,15 +11,15 @@ if __name__ == "__main__":
     from django.core.management import execute_from_command_line
 
     print sys.argv
-    if 3 == len(sys.argv):
-        # 获取文章
-        if 'article' == sys.argv[2]:
-           from spider.articles import *
-           get_articles()
-        # 生成页面
-        if 'article_htmls' == sys.argv[2]:
-           from spider.articles import *
-           get_article_htmls()
+    #if 3 == len(sys.argv):
+    # get article html page content and store to database
+    if 'article' == sys.argv[1]:
+       from spider.articles import *
+       get_articles()
+    # create new html page
+    elif 'article_htmls' == sys.argv[1]:
+       from spider.articles import *
+       get_article_htmls()
     else:
         execute_from_command_line(sys.argv)
     

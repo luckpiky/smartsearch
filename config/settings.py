@@ -20,6 +20,8 @@ DATABASES = {
     }
 }
 
+BASE_PATH = 'E:/code/smartsearch/'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -59,9 +61,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = 'E:/code/code/smartsearch/spider/article'
+STATIC_ROOT = BASE_PATH + 'html/webpage/'
 
-BASE_PATH = 'E:/code/code/smartsearch/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -108,6 +109,7 @@ ROOT_URLCONF = 'config.urls'
 #WSGI_APPLICATION = 'config.wsgi.application'
 
 TEMPLATE_DIRS = (
+    BASE_PATH + '/html/template/simple/'
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

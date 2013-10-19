@@ -99,6 +99,7 @@ class ArticleZolPad():
         self.page = ""
         self.vcodec = "gbk"
         self.site = '中关村在线'
+        self.iname = 'androidpad'
         return
 
     # 获取列表页上的文章标题和url

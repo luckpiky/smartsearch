@@ -6,7 +6,7 @@ import datetime
 #aritcle type
 class SmtArticleType(models.Model):
     name = models.CharField(max_length=32)
-    
+    iname = models.CharField(max_length=32) 
     def __unicode__(self):
         return self.name
 

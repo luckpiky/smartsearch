@@ -56,22 +56,31 @@ def removeScript(content):
   return str(soup)
   
 
+img_exts = ['jpg', 'png', 'bmp', 'gif', 'jpeg']
+
+
 #去除img标签中的多余信息，只留下src,height,width
 def formatImg(content):
     soup = BeautifulSoup(content)
     tmp1 = soup.findAll('img')
+    true_pic = False
     for tmp in tmp1:
         new_img = '<img src ="' + tmp['src'] + '"'
-        try:
-            if None != tmp['height']:
-                new_img = new_img + ' height="' + tmp['height'] + '"'
-        except:
-            pass
-        try:
-            if None != tmp['width']:
-                new_img = new_img + ' width="' + tmp['width'] + '"'
-        except:
-            pass
+        #try:
+        #    if None != tmp['height']:
+        #        new_img = new_img + ' height="' + tmp['height'] + '"'
+        #except:
+        #    pass
+        #try:
+        #    if None != tmp['width']:
+        #        new_img = new_img + ' width="' + tmp['width'] + '"'
+        #except:
+        #    pass
+        for t in img_exts:
+          if -1 != tmp['src'].lower().find(t):
+            true_pic = True
+        if true_pic:
+          new_img = new_img + ' border="0" class="main_pic"'
         new_img = new_img + ' />'
         content = content.replace(tmp.__str__(), new_img)
     return content
@@ -117,9 +126,18 @@ def getContentDescription(content, count):
 def getFirstPicture(content):
   soup = BeautifulSoup(content)
   t = soup.findAll('img')
+  first_pic = ""
   if None != t:
     for a in t:
       if None == a['src']:
         continue
-      return a['src']
+      if "" == first_pic:
+        first_pic = a['src']
+      for t in img_exts:
+        if -1 != a['src'].lower().find(t):
+          print 'find',a['src']
+          return a['src']
+      print 'find first'
+  return first_pic
+
 
