@@ -122,12 +122,12 @@ class ArticleHtmlProc():
     file_name_pre = ""
 
     if 'all' == list_type:
-      rst = SmtArticle.objects.order_by("-id").all()
+      rst = SmtArticle.objects.filter(status=True).order_by("-id").all()
       file_name_pre = 'article_list_'
     else:
       t = Article()
       typeid = t.getTypeIdByIname(list_type)
-      rst = SmtArticle.objects.filter(type=typeid).order_by("-id").all()
+      rst = SmtArticle.objects.filter(type=typeid).filter(status=True).order_by("-id").all()
       file_name_pre = 'article_list_' + list_type + '_'
     if None == rst or len(rst) == 0:
       return
@@ -164,7 +164,7 @@ class ArticleHtmlProc():
     return
 
   def createContentPage(self):
-    rst = SmtArticle.objects.all()
+    rst = SmtArticle.objects.filter(status=True).all()
     for item in rst:
       t = get_template('article.html')
       html = t.render(Context({'article':item}))

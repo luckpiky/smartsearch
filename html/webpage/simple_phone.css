@@ -1,0 +1,48 @@
+.glb {
+	width: 100%;
+}
+.search_input {
+	width: 80%;
+}
+.toolbar {
+	font-family: "宋体";
+	font-size: 1em;
+}
+.item_list {
+	font-family: "宋体";
+	font-size: 1em;
+}
+.item {
+	font-family: "宋体";
+	font-size: 1em;
+}
+.title {
+	font-family: "宋体";
+	font-size: 1.2em;
+	font-weight: bold;
+  {color: #0000FF}color: #0000FF;
+}
+.time {
+	font-family: "宋体";
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.site {
+	font-family: "宋体";
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.content {
+	font-family: "宋体";
+	font-size: 1em;
+}
+.main_pic {
+	width: 80%;
+}
+
+.index {
+	font-family: "宋体";
+	font-size: 0.8em;
+}

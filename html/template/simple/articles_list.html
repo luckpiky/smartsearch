@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"content="width=device-width, initial-scale=1"/>
+<link href="simple_pc.css" rel="stylesheet" type="text/css" />
+<title>verycheck</title>
+<script language=javascript src=head.js></script>
+</head>
+
+<body>
+<div class="glb" align="left">
+	
+  <script language=javascript src=menu.js></script>
+
+  <script language=javascript src=toolbar.js></script>
+
+  <script language=javascript src=toolbar2.js></script>
+
+  <div><hr /></div>
+
+  <div class="item_list">
+    {% for article in articles %}
+		<div class="item">
+			<div align="center">
+        <span class="title"><a href="article_{{article.id}}.html">{{article.title}}</a></span>&nbsp;
+        <span class="site">{{article.site}}</span>&nbsp;
+        <span class="time">{{article.pubtime|date:"Y-m-d"}}</span>
+			</div>
+			<div class="content">
+        {{article.description|safe}}...
+      </div>
+      {% if article.pic != "" %}
+			<div align="center">
+        <a href="article_{{article.id}}.html"><img src="{{article.pic}}" border="0" class="main_pic"/></a>
+		    </div>
+      </div>
+      {% endif %}
+		
+		<div><hr /></div>
+	  {% endfor %}
+	</div>
+	<div align="center">
+    <a href="article_list_{{first_page}}.html">首页</a> <a href="article_list_{{pre_page}}.html">上一页</a> {% for page_index in pages %}<a href="article_list_{{page_index}}.html">{{page_index}}</a> {% endfor %}<a href="article_list_{{next_page}}.html">下一页</a> <a href="article_list_{{last_page}}.html">末页</a> 
+	</div>
+	<div><hr /></div>
+  <div align="center">
+    <script language=javascript src=bottom.js></script>
+  </div>
+</div>
+<script language=javascript src=extend.js></script>
+</body>
+</html>

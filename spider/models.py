@@ -21,7 +21,26 @@ class SmtArticle(models.Model):
     type = models.ForeignKey(SmtArticleType, null=True)
     description = models.CharField(max_length=128, null=True)
     pic = models.CharField(max_length=512, null=True)
+    status = models.BooleanField(default=True)
     
     def __unicode__(self):
         return self.title
+
+#aritcle control
+class SmtArticleControl(models.Model):
+  article = models.ForeignKey(SmtArticle)
+  control = models.IntegerField()
+  arg1 = models.IntegerField(default=0)
+  arg2 = models.BooleanField(default=True)
+  arg3 = models.CharField(max_length=255, null=True)
+  arg4 = models.CharField(max_length=255, null=True)
+
+  def __unicode__(self):
+    return str(self.article.id) + self.article.title
+
+#img resource
+class SmtImgResource(models.Model):
+  original = models.CharField(max_length=255)
+  real = models.CharField(max_length=255)
+
 
