@@ -27,7 +27,8 @@
       <div align="center">
         <span class="site">{{article.site}}</span>&nbsp;
         <span class="time">{{article.pubtime|date:"Y-m-d"}}</span>
-			</div>
+      </div>
+      <div class="site" align="center">原文地址：<a href='{{article.url}}' target="_blank">{{article.url}}</a></div>
 			<div class="content">
         {{article.content|safe}}
 			</div>
