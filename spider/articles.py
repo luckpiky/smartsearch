@@ -18,7 +18,7 @@ sys.setdefaultencoding('utf-8')
 class Article():
   def __init__(self):
     self.node_list = []
-    self.MAX_READ_PERNODE = 30
+    self.MAX_READ_PERNODE = 20
     self.MAX_DESCRIPTION = 100
     return
 
@@ -112,6 +112,21 @@ class Article():
 class ArticleHtmlProc():
   def __init__(self):
     self.COUNT_PER_PAGE = 10
+    self.rewrite = False
+    return
+
+  def canWrite(self, filename):
+    if True == self.rewrite:
+      return True
+    if False == os.path.exists(filename):
+      return True
+    return False
+
+  def writeFile(self, filename, content):
+    fp = open(filename, 'w')
+    fp.write(content)
+    fp.close()
+    print 'create', filename, 'ok'
     return
 
   def createListPage(self, list_type):
@@ -150,29 +165,28 @@ class ArticleHtmlProc():
       next_page = page + 1
       if next_page > page_count:
         next_page = page_count
-      #print page,":"
-      #for t in articles:
-      #  print t.title
+      
+      #now begin create article_list_X.html
+      filename = STATIC_ROOT + file_name_pre + str(page) + '.html'
+      
       t = get_template('articles_list.html')
       html = t.render(Context({'articles':articles, 'pages':pages, 'first_page':first_page, 'pre_page':pre_page, 'next_page':next_page, 'last_page':last_page}))
+      
+      self.writeFile(filename, html)
 
-      file_name = STATIC_ROOT + file_name_pre + str(page) + '.html'
-      fp = open(file_name, 'w')
-      fp.write(html)
-      fp.close()
-      print 'create',file_name,'ok'
     return
 
   def createContentPage(self):
     rst = SmtArticle.objects.filter(status=True).all()
     for item in rst:
+      filename = STATIC_ROOT + 'article_' + str(item.id) + '.html'
+
+      if False == self.canWrite(filename):
+        continue
+
       t = get_template('article.html')
       html = t.render(Context({'article':item}))
-      file_name = STATIC_ROOT + 'article_' + str(item.id) + '.html'
-      fp = open(file_name, 'w')
-      fp.write(html)
-      fp.close()
-      print 'create',item.title,file_name,'ok'
+      self.writeFile(filename, html)
     return
 
 
@@ -184,9 +198,11 @@ def get_articles():
   print a.node_list
   a.getArticles()
 
-def get_article_htmls():
+def get_article_htmls(operation):
   print "get article html"
   a = ArticleHtmlProc()
+  if 'all' == operation:
+    a.rewrite = True
   a.createContentPage()
   a.createListPage('all')
   rst = SmtArticleType.objects.all()

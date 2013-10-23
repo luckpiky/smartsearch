@@ -13,15 +13,18 @@ if __name__ == "__main__":
     print sys.argv
     #if 3 == len(sys.argv):
     # get article html page content and store to database
-    if 'article' == sys.argv[1]:
-       from spider.articles import *
-       get_articles()
+    if 'get_article' == sys.argv[1]:
+      from spider.articles import *
+      get_articles()
     # create new html page
-    elif 'article_htmls' == sys.argv[1]:
-       from spider.articles import *
-       get_article_htmls()
+    elif 'create_html_new' == sys.argv[1]:
+      from spider.articles import *
+      get_article_htmls('new')
+    elif 'create_html_all' == sys.argv[1]:
+      from spider.articles import *
+      get_article_htmls('all')
     else:
-        execute_from_command_line(sys.argv)
+      execute_from_command_line(sys.argv)
     
    
 
