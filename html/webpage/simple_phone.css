@@ -1,6 +1,10 @@
 .glb {
 	width: 100%;
 }
+.logo_title {
+  font-family: 'Lobster', Helvetica,Verdana,Arial,Sans-Serif;
+  font-size:1.5em;
+}
 .search_input {
 	width: 80%;
 }
@@ -18,7 +22,7 @@
 }
 .title {
 	font-family: "ËÎÌו";
-	font-size: 1.2em;
+	font-size: 1.1em;
 	font-weight: bold;
   {color: #0000FF}color: #0000FF;
 }
@@ -39,9 +43,11 @@
 	font-size: 1em;
 }
 .main_pic {
-	width: 80%;
+	width: 400px;
 }
-
+.list_pic {
+  width: 400px;
+}
 .index {
 	font-family: "ËÎÌו";
 	font-size: 0.8em;

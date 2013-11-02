@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="关注一切值得玩的东西。平板，手机，DIY..."/>
+<meta name="keywords" content="平板电脑,手机,评测,cpu" />
+<title>www.verycheckt.net</title>
+
+<style type="text/css">
+<!--
+a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+-->
+.block1 {
+	width:99%;
+}
+.block2 {
+	width:99%; 
+	height:16em; 
+	background-color:#9900AA; 
+	float:inherit;
+}
+.block3 {
+	width:99%; 
+	height:16em; 
+	background-color:#3366FF; 
+	float:inherit;
+}
+.block_font {
+  font-family:'����'; 
+  font-size:3em; 
+  color:#FFFFFF;
+}
+</style>
+</head>
+
+<body bgcolor="#E6E6E6">
+<div id="all" align="center">
+<div align="center">
+<div id="block1" align="left" class="block1" style="flag"><span style="font-family:Georgia;font-family:Arial; font-size:3em">verycheck</span></div>
+</div>
+<div id="block2" align="center" class="block2" onmouseover="style.backgroundColor='#9933FF';" onmouseout="style.backgroundColor='#9900AA';" onclick="location='http://www.verycheck.net/article/article_list_1.html'">
+	<div align="left">
+	    <br>
+	    <span class="block_font"><b>&nbsp;<a href="http://www.verycheck.net/article/article_list_1.html">平板评测</a></b></span>
+	</div>
+</div>
+<div id="block3" align="center" class="block3" onmouseover="style.backgroundColor='#9933FF';" onmouseout="style.backgroundColor='#3366FF';" onclick="location='http://www.verycheck.net/wiki/'">
+	<div align="left">
+		<br>
+		<span class="block_font"><b>&nbsp;<a href="http://www.verycheck.net/wiki/">平板CPU</a></b></span>
+	</div>
+</div>
+</div>
+</body>
+<script language="javascript">
+function mysize()
+{
+  var agent = navigator.userAgent
+  h = window.innerHeight;
+  w = window.screen.width;
+
+  if(agent.indexOf("Android") > -1 || agent.indexOf("ios") > -1  || agent.indexOf("iPad") > -1  || agent.indexOf("iPhone") > -1)
+  {
+    h = h - 50;
+    if(h < 100)
+    {
+      h = 400;
+    }
+	  document.getElementById("block2").style.height = h*0.5 + "px";
+    document.getElementById("block3").style.height = h*0.5 + "px";
+
+    document.getElementById("block1").style.width = "98%";
+    document.getElementById("block2").style.width = "98%";
+    document.getElementById("block3").style.width = "98%";
+  }
+  else
+  {
+    h = window.screen.height / 3;
+    document.getElementById("block2").style.height = h + "px";
+    document.getElementById("block3").style.height = h + "px";
+    document.getElementById("block1").style.width = w/2 + "px";
+    document.getElementById("block2").style.width = w/2 + "px";
+    document.getElementById("block3").style.width = w/2 + "px";
+  }
+}
+window.resize = mysize();
+
+function orientationChange()
+{ 
+  switch(window.orientation) 
+  { 
+    case 0: // Portrait 
+    case 180: // Upside-down Portrait 
+      // Javascript to setup Portrait view 
+	  //window.location.reload();
+      break; 
+    case -90: // Landscape: turned 90 degrees counter-clockwise 
+    case 90: // Landscape: turned 90 degrees clockwise 
+      // Javascript to steup Landscape view
+	  //window.location.reload(); 
+      break; 
+  } 
+} 
+
+//window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", orientationChange, false); 
+window.addEventListener("onorientationchange" in window ? "orientationchange": "resize", mysize, true);
+
+</script>
+</html>

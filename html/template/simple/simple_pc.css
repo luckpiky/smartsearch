@@ -1,6 +1,27 @@
+.block1 {
+	width:40%;
+}
+.block2 {
+	width:40%; 
+	height:16em; 
+	background-color:#9900AA; 
+	float:inherit;
+}
+.block3 {
+	width:40%; 
+	height:16em; 
+	background-color:#3366FF; 
+	float:inherit;
+}
+
+
 .glb {
 	width: 800px;
 	float:left;
+}
+.logo_title {
+  font-family : "Lobster",Helvetica,Verdana,Arial,Sans-Serif;
+  font-size : 18px;
 }
 .search_input {
 	width: 500px;
@@ -39,10 +60,13 @@
 	font-family: "ËÎÌו";
 	font-size: 14px;
 }
-.main_pic {
-	width: 80%;
+.list_pic {
+	width: 480px;
+  height: 360px; 
 }
-
+.main_pic {
+  width: 80%;
+}
 .index {
 	font-family: "ËÎÌו";
 	font-size: 14px;

@@ -1,36 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"content="width=device-width, initial-scale=1"/>
-<link href="simple_pc.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1"/>
 <title>verycheck</title>
-<script language=javascript src=head.js></script>
+<style type="text/css">
+.glb {
+	width: 100%;
+}
+.logo_title {
+  font-family: 'Lobster', Helvetica,Verdana,Arial,Sans-Serif;
+  font-size:1.5em;
+}
+.search_input {
+	width: 80%;
+}
+.toolbar {
+	font-size: 1em;
+}
+.item_list {
+	font-size: 1em;
+}
+.item {
+	font-size: 1em;
+}
+.title {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #0000FF;
+}
+.time {
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.site {
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.content {
+	font-size: 1em;
+	word-break:break-all;
+	width:100%; 
+	overflow:auto;
+}
+.main_pic {
+	width: 80%;
+}
+.list_pic {
+  width: 60%;
+}
+.index {
+	font-size: 0.8em;
+}
+</style>
 </head>
 
 <body>
-<div class="glb" align="left">
-	
+<div align="center">
+<div id = "glb" class="glb" align="left">
   <script language=javascript src=menu.js></script>
-
-  <script language=javascript src=toolbar.js></script>
-
-  <script language=javascript src=toolbar2.js></script>
-
   <div><hr /></div>
 
-  <div class="item_list">
+	<div id="article" class="item_list">
 		<div class="item">
 			<div align="center">
-        <span class="title">全高清屏加窄边框 品铂M8HD 3G版评测</span>
-      </div>
-      <div align="center">
-        <span class="site">中关村在线</span>&nbsp;
-        <span class="time">2013-10-22</span>
-      </div>
-      <div class="site" align="center">原文地址：<a href='http://pad.zol.com.cn/403/4039840.html' target="_blank">http://pad.zol.com.cn/403/4039840.html</a></div>
+        		<span class="title">全高清屏加窄边框 品铂M8HD 3G版评测</span>
+      		</div>
+      		<div align="center">
+        		<span class="site">中关村在线</span>&nbsp;
+        		<span class="time">2013-10-22</span>
+      		</div>
+      		<div class="site" align="center">原文地址：<a href='http://pad.zol.com.cn/403/4039840.html' target="_blank">http://pad.zol.com.cn/403/4039840.html</a></div>
 			<div class="content">
-        
+        		
 <p>　　疯狂的堆硬件，是笔者对品铂平板一直以来的固有印象。在这里堆硬件并不是个贬义，而是说代工厂出身的品铂总能拿到别的国产平板品牌求之不得的上好资源放在自己的平板上。随便一数，我们就会发现品铂已经在国产平板中创造过无数次第一，比如U1Pro是国产第一款用上Nexus&nbsp;7原装屏平板，M8是第一款采用LG原厂9.4吋屏的国产平板，M9pro又是第一款搭载RK3188芯的机型等。而诸如光感器、陀螺仪、电子罗盘、无线3G、蓝牙等等这些国产平板从不注重的细节功能也能在品铂平板上轻易找到。每一次品铂出手，就意味着又有一款亮点十足的产品出现，而这一次的M8HD又会带给我们些什么，一起来看看吧。</p>
 <p>　　当然，我们还是先从硬件开始说起。M8HD作为M8家族一员继承了书卷式外观，同时有着窄边框设计；在决定平板基本使用体验的屏幕与芯片部分，M8HD采用了10.1英寸Full&nbsp;HD级全高清屏，辅以RK3188四核芯片与2GB&nbsp;RAM空间；同时如刚才所说，光感器、陀螺仪、电子罗盘、无线3G、蓝牙这些功能也是一应俱全，另外还支持业界领先的5G&nbsp;WiFi。而M8HD价格则定在了1299元16GB&nbsp;WiFi版，1499元16GB&nbsp;3G版。</p>
 <p><strong>整体外观</strong><br /><br />　　书卷式造型是品铂M8系列的最显著特征，尽管设计思路来源于索尼Tablet&nbsp;S平板，但是品铂并不是单纯的模仿照搬，而是加入了全新的设计元素，使之形似而神异。而M8HD尽管屏幕从9.4英寸升级到10.1英寸，但M8设计的精髓依然完整保留，具有很清晰的外观辨识度。</p>
@@ -106,13 +150,13 @@
 <p>　　在本地视频循环播放下，M8HD从100%电量到完全耗尽总计6小时出头的时间，从这个成绩来说只能算是中规中矩，但也算可以让人接受。而大型应用状态下坚持了4小时以上时间才耗尽电量，需要注意的是屏幕亮度是最高状态，且WiFi开启，能有这样的表现算是给M8HD挽回了一点面子，也体现出RK3188芯片在大型应用下的功耗控制能力还是很不错的。<br /><br /><strong>评测总结</strong><br /><br />　　毫无疑问，品铂M8HD又一次成为硬件集大成者，10.1英寸全高清屏与RK3188四核强芯完全不足以概括它的强大配置表现，它还有着效果出众带闪光灯的双摄像头，支持5GHz&nbsp;WiFi，电子罗盘、陀螺仪等国产平板很少注重的细节功能，可以说在当前市面上没有任何一款国产平板硬件全面性可以与之媲美。不仅如此，M8HD的系统层级提升幅度同样惊人，多窗口功能的实现充分利用了四核芯片多线程运算的承载能力，而且操控体验也是可以接受的。而机无完机，M8HD不足方面则在于机身正面板稳固性不是很好，略有翘屏问题，同时发热量相对较为明显。但瑕不掩瑜，品铂M8HD足以对得起它千元级的定价，感兴趣的朋友尽管出手吧。&nbsp;<br /></p>
 			</div>
 		</div>
-		
 		<div><hr /></div>
 	</div>
+	
   <div align="center">
     <script language=javascript src=bottom.js></script>
   </div>
 </div>
-<script language=javascript src=extend.js></script>
+</div>
 </body>
 </html>

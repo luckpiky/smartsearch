@@ -1,22 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"content="width=device-width, initial-scale=1"/>
-<link href="simple_pc.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1"/>
 <title>verycheck</title>
 <script language=javascript src=head.js></script>
+<style type="text/css">
+.glb {
+	width: 100%;
+}
+.logo_title {
+  font-family: 'Lobster', Helvetica,Verdana,Arial,Sans-Serif;
+  font-size:1.5em;
+}
+.search_input {
+	width: 80%;
+}
+.toolbar {
+	font-size: 1em;
+}
+.item_list {
+	font-size: 1em;
+}
+.item {
+	font-size: 1em;
+}
+.title {
+	font-size: 1.1em;
+	font-weight: bold;
+  {color: #0000FF}color: #0000FF;
+}
+.time {
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.site {
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.content {
+	font-size: 1em;
+}
+.main_pic {
+	width: 80%;
+}
+.list_pic {
+  width: 60%;
+}
+.index {
+	font-size: 0.8em;
+}
+</style>
 </head>
 
 <body>
-<div class="glb" align="left">
-	
+<div align="center">
+<div id = "glb" class="glb" align="left">
   <script language=javascript src=menu.js></script>
-
-  <script language=javascript src=toolbar.js></script>
-
-  <script language=javascript src=toolbar2.js></script>
-
   <div><hr /></div>
 
   <div class="item_list">
@@ -24,15 +66,13 @@
 		<div class="item">
 			<div align="center">
         <span class="title"><a href="article_{{article.id}}.html">{{article.title}}</a></span>&nbsp;
-        <span class="site">{{article.site}}</span>&nbsp;
-        <span class="time">{{article.pubtime|date:"Y-m-d"}}</span>
 			</div>
 			<div class="content">
         {{article.description|safe}}...
       </div>
       {% if article.pic != "" %}
 			<div align="center">
-        <a href="article_{{article.id}}.html"><img src="{{article.pic}}" border="0" class="main_pic"/></a>
+        <a href="article_{{article.id}}.html"><img src="{{article.pic}}" border="0" width="70%" /></a>
 		    </div>
       </div>
       {% endif %}
@@ -48,6 +88,6 @@
     <script language=javascript src=bottom.js></script>
   </div>
 </div>
-<script language=javascript src=extend.js></script>
+</div>
 </body>
 </html>

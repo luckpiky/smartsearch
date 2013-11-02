@@ -1,0 +1,73 @@
+.block1 {
+	width:40%;
+}
+.block2 {
+	width:40%; 
+	height:16em; 
+	background-color:#9900AA; 
+	float:inherit;
+}
+.block3 {
+	width:40%; 
+	height:16em; 
+	background-color:#3366FF; 
+	float:inherit;
+}
+
+
+.glb {
+	width: 400px;
+	float:left;
+}
+.logo_title {
+  font-family : "Lobster",Helvetica,Verdana,Arial,Sans-Serif;
+  font-size : 18px;
+}
+.search_input {
+	width: 300px;
+}
+.toolbar {
+	font-family: "宋体";
+	font-size: 12px;
+}
+.item_list {
+	font-family: "宋体";
+	font-size: 12px;
+}
+.item {
+	font-family: "宋体";
+	font-size: 12px;
+}
+.title {
+	font-family: "宋体";
+	font-size: 18px;
+	font-weight: bold;
+  color: #0000FF;
+}
+.time {
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: lighter;
+	color: #666666;
+}
+.site {
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: lighter;
+	color: #666666;
+}
+.content {
+	font-family: "宋体";
+	font-size: 14px;
+}
+.list_pic {
+	width: 360px;
+  height: 300px; 
+}
+.main_pic {
+  width: 80%;
+}
+.index {
+	font-family: "宋体";
+	font-size: 14px;
+}

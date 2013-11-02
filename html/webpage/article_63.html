@@ -1,36 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"content="width=device-width, initial-scale=1"/>
-<link href="simple_pc.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1"/>
 <title>verycheck</title>
-<script language=javascript src=head.js></script>
+<style type="text/css">
+.glb {
+	width: 100%;
+}
+.logo_title {
+  font-family: 'Lobster', Helvetica,Verdana,Arial,Sans-Serif;
+  font-size:1.5em;
+}
+.search_input {
+	width: 80%;
+}
+.toolbar {
+	font-size: 1em;
+}
+.item_list {
+	font-size: 1em;
+}
+.item {
+	font-size: 1em;
+}
+.title {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #0000FF;
+}
+.time {
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.site {
+	font-size: 0.8em;
+	font-weight: lighter;
+	color: #666666;
+}
+.content {
+	font-size: 1em;
+	word-break:break-all;
+	width:100%; 
+	overflow:auto;
+}
+.main_pic {
+	width: 80%;
+}
+.list_pic {
+  width: 60%;
+}
+.index {
+	font-size: 0.8em;
+}
+</style>
 </head>
 
 <body>
-<div class="glb" align="left">
-	
+<div align="center">
+<div id = "glb" class="glb" align="left">
   <script language=javascript src=menu.js></script>
-
-  <script language=javascript src=toolbar.js></script>
-
-  <script language=javascript src=toolbar2.js></script>
-
   <div><hr /></div>
 
-  <div class="item_list">
+	<div id="article" class="item_list">
 		<div class="item">
 			<div align="center">
-        <span class="title">编辑香港跑展有感 沉重背包却让心放松</span>
-      </div>
-      <div align="center">
-        <span class="site">中关村在线</span>&nbsp;
-        <span class="time">2013-10-19</span>
-      </div>
-      <div class="site" align="center">原文地址：<a href='http://pad.zol.com.cn/404/4047587.html' target="_blank">http://pad.zol.com.cn/404/4047587.html</a></div>
+        		<span class="title">编辑香港跑展有感 沉重背包却让心放松</span>
+      		</div>
+      		<div align="center">
+        		<span class="site">中关村在线</span>&nbsp;
+        		<span class="time">2013-10-19</span>
+      		</div>
+      		<div class="site" align="center">原文地址：<a href='http://pad.zol.com.cn/404/4047587.html' target="_blank">http://pad.zol.com.cn/404/4047587.html</a></div>
 			<div class="content">
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;又接到了跑展会的任务，每年两次的香港电子展虽说比起美国CES来说，路程并不算远，但湾仔与机场两个展馆，一个在东南一个在西北。遥相呼应及紧张的行程安排，让还没动身的笔者光想想就有些额头冒汗。还记得当年背着自己大学时代的小背包，笔记本、相机再加上各种各样的电源适配器和随行装备，杂乱无章永远无法在第一时间找到所需，又让笔者在动身前就决定要选择一款最适宜的背包。</p>
+        		<p>&nbsp;&nbsp;&nbsp;&nbsp;又接到了跑展会的任务，每年两次的香港电子展虽说比起美国CES来说，路程并不算远，但湾仔与机场两个展馆，一个在东南一个在西北。遥相呼应及紧张的行程安排，让还没动身的笔者光想想就有些额头冒汗。还记得当年背着自己大学时代的小背包，笔记本、相机再加上各种各样的电源适配器和随行装备，杂乱无章永远无法在第一时间找到所需，又让笔者在动身前就决定要选择一款最适宜的背包。</p>
 <p style="text-align:center;"><br clear="all" style="font-size:0;line-height:0" /><img src="http://2d.zol-img.com.cn/product/121/599/ceZzKZiYR7TNk.jpg" border="0" class="main_pic" /><br /><strong>又接到了报道香港电子展的任务&nbsp;跑展会不光对体力&nbsp;对装备也是个不小的挑战</strong></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;作为一个月收入一般，年收入保密的小编辑来说，预算是笔者不得不考虑因素，而淘宝的鱼龙混杂也让笔者确实觉得有些不那么靠谱，一搜一大把的杂牌书包图片精美但背起来真的能经受沉重的跑展装备么？况且又是平板电脑事业部的编辑，带着平板跑展自然更不必说，在京东上搜索“平板电脑&nbsp;双肩包”的关键字后，一款背包进入了笔者的视线。</p>
 <p style="text-align:center;"><img src="http://2e.zol-img.com.cn/product/121/818/cetDXIghqjAzk.jpg" border="0" class="main_pic" /><br /><strong>背包是个最重要的装备&nbsp;包的好坏决定了几天展会的辛苦程度</strong></p>
@@ -46,13 +90,13 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;几天的跑展下来，沉重的背包却出乎意料的让我的心情放松了不少，将重要的东西都随身携带并安排整齐，让繁重紧张的跑展工作变得有条不紊。告别了之前一次跑展学生时代的背包体验，更偏向商务的Padroo再加上对iPad平板的专业设计，对于记者加编辑属性的笔者而言再适合不过。</p>
 			</div>
 		</div>
-		
 		<div><hr /></div>
 	</div>
+	
   <div align="center">
     <script language=javascript src=bottom.js></script>
   </div>
 </div>
-<script language=javascript src=extend.js></script>
+</div>
 </body>
 </html>
