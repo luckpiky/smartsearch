@@ -23,6 +23,10 @@ if __name__ == "__main__":
     elif 'create_html_all' == sys.argv[1]:
       from spider.articles import *
       get_article_htmls('all')
+    elif 'renew_article' == sys.argv[1]:
+      from spider.articles import *
+      renew_articles()
+      print 'aa'
     else:
       execute_from_command_line(sys.argv)
     

@@ -8,14 +8,60 @@ import time
 import sys
 import codecs
 
-from urlparse import *
-
 from BeautifulSoup import * 
 
 from lib.htmlproc import *
+from spider.article.a_template import *
+
+class ArticlePconlinePad(ArticleTemplate):
+  site = 'Ì«Æ½ÑóµçÄÔÍø'
+  atype = 'androidpad'
+
+  #find the article list from page
+  def findArticleListPage(self, soup):
+    return soup.findAll('li')
+
+  #parse the one article item that from list, [url, title]
+  def parseArticleListItem(self, item_soup):
+    item = [unicode(item_soup.dl.dt.a.string), item_soup.dl.dt.a['href']]
+    return item
+
+  #find the page
+  def findNextPage(self, soup):
+    return soup.find('a', {'class':'next'})
+
+  #find next article content page
+  def findNextArticlePage(self, soup):
+    tmp1 = soup.find('div', {'class':'pconline_page pageLast'})
+    if None == tmp1:
+      return None
+    try:
+      page = tmp1.__str__() 
+      soup1 = BeautifulSoup(page)      
+      return soup1.find('a', {'class':'next'})
+    except:
+      return None
+
+  #find article content
+  def findArticleContent(self, soup):
+    return soup.find('div', {'class':'content'})
 
 
-class ArticlePconlinePad():
+#t = pconline1()
+#t.setBaseUrl("http://pad.pconline.com.cn/reviews/")
+#t.page = urllib.urlopen(t.url).read().decode(t.vcodec)
+#lst1 = t.getArticleList()
+#urlt = ""
+#for t1 in lst1:
+  #print t1[0],t1[1]
+#  urlt = t1[1]
+#print urlt
+#con = t.getArticleContent("http://pad.pconline.com.cn/372/3724861.html")
+#print con
+
+
+
+class ArticlePconlinePad1():
     def __init__(self):
         self.url = 'http://pad.pconline.com.cn/reviews/'
         self.content = ""

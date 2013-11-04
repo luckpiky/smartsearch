@@ -15,6 +15,8 @@ from config.settings import *
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+
+#article processor
 class Article():
   def __init__(self):
     self.node_list = []
@@ -31,11 +33,11 @@ class Article():
   def writeArticle(self, title, url, content, node):
     article = SmtArticle()
    
-    typeid = self.getTypeIdByIname(node.iname)
+    typeid = self.getTypeIdByIname(node.atype)
     if -1 != typeid:
       article.type_id = typeid
 
-    article.title = title.encode('utf-8' )
+    article.title = title.encode('utf-8')
     article.url = url
     article.content = removeScript(content)
     article.site = node.site.decode('gbk')
@@ -59,24 +61,23 @@ class Article():
     # while read articlelist and next page url
     page_index = 1
     count = 0
-    while(None != node.url):
-      url = node.url
-      print 'urllib read:',url
-      node.page = urllib.urlopen(url).read().decode(node.vcodec)
-      
+    tmp_url = node.url
+    while(None != tmp_url):
       #print node.page
-      tmp = node.getNextPage()
+      article_list = node.getArticleList(tmp_url)
+      print 'read ' + str(len(article_list)) + ' articles'
+
+      #get next list page
+      tmp = node.getNextListPage(tmp_url)
       if None != tmp:
-        node.url = urljoin(url, tmp)
-        print node.url
+        tmp_url = urljoin(url, tmp)
+        print tmp_url
         page_index = page_index + 1
       else:
-        node.url = None
-      newslist = node.getNewsList()
-      print 'read ' + str(len(newslist)) + ' articles'
+        tmp_url = None
 
       # read aritcle content
-      for article in newslist:
+      for article in article_list:
         print article[0],article[1] # title url
         
         #control the count
@@ -86,7 +87,7 @@ class Article():
 
         # check and read and write a article
         if self.checkArticleExist(article[0], article[1]):
-          content = node.getNewsContent(article[1])
+          content = node.getArticleContent(article[1])
 
           # write to file
           if None != content and '' != content:
@@ -99,6 +100,16 @@ class Article():
       self.getArticle(node[1])
     return
 
+  def renewArticles(self):
+    articles = SmtArticle.objects.all()
+    print len(articles)
+    for a in articles:
+      for tnode in self.node_list:
+        print a.site
+        if tnode.site.decode('gbk') == a.site:
+          print a.title
+    return
+
   def register(self, name, node):
     has = False
     for t in self.node_list:
@@ -106,7 +117,7 @@ class Article():
         has = True
         break
     if False == has:
-      self.node_list.append([name, node()])
+      self.node_list.append([name, node])
     return
 
 class ArticleHtmlProc():
@@ -187,14 +198,21 @@ class ArticleHtmlProc():
       t = get_template('article.html')
       html = t.render(Context({'article':item}))
       self.writeFile(filename, html)
-    return
+    return 
 
 
 def get_articles():
   print "get articles"
   a = Article()
-  a.register('zolpad', ArticleZolPad)
-  a.register('pconlinepad', ArticlePconlinePad)
+  
+  zol_pad = ArticleZolPad()
+  zol_pad.setBaseUrl("http://pad.zol.com.cn/more/2_1531.shtml")
+  a.register('zolpad', zol_pad)
+  
+  pconline_pad = ArticlePconlinePad()
+  pconline_pad.setBaseUrl("http://pad.pconline.com.cn/reviews/");
+  #a.register('pconlinepad', pconline_pad)
+  
   print a.node_list
   a.getArticles()
 
@@ -209,3 +227,7 @@ def get_article_htmls(operation):
   for t in rst:
     a.createListPage(t.iname)
   return
+
+def renew_articles():
+  a = Article()
+  a.renewArticles()
