@@ -16,16 +16,18 @@ from BeautifulSoup import *
 from lib.htmlproc import *
 
 class ArticleTemplate():
+  url = 'http://url'
+  content = ""
+  article_list = []
+  delay = 0
+  page = ""
+  vcodec = "gbk"
+  site = 'site name'
+  atype = 'aritcle type'
+  soup = None
+
   def __init__(self):
-    self.url = 'http://url'
-    self.content = ""
     self.article_list = []
-    self.delay = 0
-    self.page = ""
-    self.vcodec = "gbk"
-    self.site = 'site name'
-    self.atype = 'aritcle type'
-    self.soup = None
     return
 
   #set self.url
@@ -99,6 +101,9 @@ class ArticleTemplate():
   def findArticleContent(self, soup):
     return soup.find('div', {'id':'cotent_idd'})
 
+  def formatContent(self, content):
+    return getPNode(content)
+
   #get article content
   def getArticleContent(self, url):
     next_url = ""
@@ -116,7 +121,8 @@ class ArticleTemplate():
       content = content + self.getArticleContent(next_url)
     if None != tmp1 and '' != tmp1:
       content = tmp1.__str__() + content
-    return content
+
+    return self.formatContent(content)
 
 
 

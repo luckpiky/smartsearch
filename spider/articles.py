@@ -39,7 +39,7 @@ class Article():
 
     article.title = title.encode('utf-8')
     article.url = url
-    article.content = removeScript(content)
+    article.content = content 
     article.site = node.site.decode('gbk')
     article.pic = getFirstPicture(content)
     article.description = getContentDescription(article.content, self.MAX_DESCRIPTION)
@@ -62,6 +62,7 @@ class Article():
     page_index = 1
     count = 0
     tmp_url = node.url
+    print tmp_url
     while(None != tmp_url):
       #print node.page
       article_list = node.getArticleList(tmp_url)
@@ -97,17 +98,20 @@ class Article():
 
   def getArticles(self):
     for node in self.node_list:
+      print 'get ',node[0],node[1].url
       self.getArticle(node[1])
     return
 
   def renewArticles(self):
     articles = SmtArticle.objects.all()
-    print len(articles)
     for a in articles:
       for tnode in self.node_list:
-        print a.site
+        tnode = tnode[1]
         if tnode.site.decode('gbk') == a.site:
-          print a.title
+          content = tnode.getArticleContent(a.url)
+          a.content = content
+          a.description = getContentDescription(content, self.MAX_DESCRIPTION)
+          a.save()
     return
 
   def register(self, name, node):
@@ -117,6 +121,7 @@ class Article():
         has = True
         break
     if False == has:
+      print 'regiter:',name,node
       self.node_list.append([name, node])
     return
 
@@ -195,26 +200,35 @@ class ArticleHtmlProc():
       if False == self.canWrite(filename):
         continue
 
+      #format content
+      item.content = removeScript(item.content)
+      item.content = removeUrls(item.content)
+      item.content = formatImg(item.content)
+
       t = get_template('article.html')
       html = t.render(Context({'article':item}))
       self.writeFile(filename, html)
     return 
 
 
-def get_articles():
-  print "get articles"
+
+def createArticleNode():
   a = Article()
-  
   zol_pad = ArticleZolPad()
   zol_pad.setBaseUrl("http://pad.zol.com.cn/more/2_1531.shtml")
   a.register('zolpad', zol_pad)
   
   pconline_pad = ArticlePconlinePad()
   pconline_pad.setBaseUrl("http://pad.pconline.com.cn/reviews/");
-  #a.register('pconlinepad', pconline_pad)
-  
-  print a.node_list
+  a.register('pconlinepad', pconline_pad)
+
+  return a
+
+def get_articles():
+  print "get articles"
+  a = createArticleNode()
   a.getArticles()
+  return
 
 def get_article_htmls(operation):
   print "get article html"
@@ -229,5 +243,5 @@ def get_article_htmls(operation):
   return
 
 def renew_articles():
-  a = Article()
+  a = createArticleNode()
   a.renewArticles()

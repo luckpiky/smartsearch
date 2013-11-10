@@ -106,12 +106,18 @@ def delPreStr(s, c):
 
 
 def getContentDescription(content, count):
+    #content = removeScript(content)
+    #content = removeUrls(content)
+    #content = formatImg(content)
+    #content = getPNode(content)
     soup = BeautifulSoup(content)
     t = soup.contents[0].string
     s = ''
+    tmp = ''
     while None != t:
-      if None != t.string:
-        s = s + t.string
+      if None != t.string and tmp != t.string:
+        tmp = t.string 
+        s = s + tmp
         if len(s) > count * 2:
           break
       t = t.next
@@ -121,7 +127,7 @@ def getContentDescription(content, count):
     s2 = delPreStr(s1, '&nbsp;')
     if len(s2) > count:
       return s2[0:count]
-    return s2
+    return s2.strip()
 
 def getFirstPicture(content):
   soup = BeautifulSoup(content)
@@ -139,5 +145,8 @@ def getFirstPicture(content):
           return a['src']
       print 'find first'
   return first_pic
+
+
+
 
 
