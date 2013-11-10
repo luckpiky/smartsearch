@@ -7,6 +7,7 @@ import time
 from spider.models import *
 from spider.article.zol_pad import *
 from spider.article.pconline_pad import *
+from spider.article.cnmo_pad import *
 from django.core.paginator import *
 from django.template.loader import get_template
 from django.template import Context
@@ -221,6 +222,11 @@ def createArticleNode():
   pconline_pad = ArticlePconlinePad()
   pconline_pad.setBaseUrl("http://pad.pconline.com.cn/reviews/");
   a.register('pconlinepad', pconline_pad)
+
+  cnmo_pad = ArticleCnmoPad()
+  cnmo_pad.setBaseUrl("http://pad.cnmo.com/list_50_52_0_1.html");
+  a.register('cnmopad', cnmo_pad)
+
 
   return a
 
