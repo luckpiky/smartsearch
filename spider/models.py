@@ -43,4 +43,130 @@ class SmtImgResource(models.Model):
   original = models.CharField(max_length=255)
   real = models.CharField(max_length=255)
 
+#company
+class SmtCompany(models.Model):
+  name = models.CharField(max_length=64)
+
+  def __unicode__(self):
+    return self.name
+
+#cpu
+class SmtCpu(models.Model):
+  name = models.CharField(max_length=64)
+  cpu_cores = models.CharField(max_length=32)
+  cpu_frequency = models.CharField(max_length=32)
+  gpu = models.CharField(max_length=32, null=True)
+  gpu_cores = models.CharField(max_length=32, null=True)
+  gpu_frequency = models.CharField(max_length=32, null=True)
+  sale_time = models.CharField(max_length=64, null=True)
+
+  def __unicode__(self):
+      return self.name
+
+
+#product
+class SmtProductPad(models.Model):
+  url = models.CharField(max_length=128)
+  fullname = models.CharField(max_length=128)
+  name = models.CharField(max_length=64)
+  lock_name = models.BooleanField(default=False)
+  company = models.ForeignKey(SmtCompany)
+  lock_company = models.BooleanField(default=False)
+  nametype = models.CharField(max_length=64, null=True)
+  lock_nametype = models.BooleanField(default=False)
+  saletime = models.CharField(max_length=64, null=True)
+  lock_saletime = models.BooleanField(default=False)
+  system = models.CharField(max_length=64, null=True)
+  lock_system = models.BooleanField(default=False)
+  system_version = models.CharField(max_length=32, null=True)
+  lock_system_version = models.BooleanField(default=False)
+  cpu = models.CharField(max_length=64, null=True)
+  lock_cpu = models.BooleanField(default=False)
+  cpu_frequency = models.CharField(max_length=32, null=True)
+  lock_cpu_frequency = models.BooleanField(default=False)
+  cpucores = models.CharField(max_length=32,null=True)
+  lock_cpucores = models.BooleanField(default=False)
+  gpu = models.CharField(max_length=32, null=True)
+  lock_gpu = models.BooleanField(default=False)
+  gpucores = models.CharField(max_length=32, null=True)
+  lock_gpucores = models.BooleanField(default=False)
+  memory = models.CharField(max_length=32, null=True)
+  lock_memory = models.BooleanField(default=False)
+  storage = models.CharField(max_length=32, null=True)
+  lock_storage = models.BooleanField(default=False)
+  storage_ext = models.CharField(max_length=32, null=True)
+  lock_storage_ext = models.BooleanField(default=False)
+  screen_size = models.CharField(max_length=32, null=True)
+  lock_screen_size = models.BooleanField(default=False)
+  screen_resolution = models.CharField(max_length=32, null=True)
+  lock_screen_resolution = models.BooleanField(default=False)
+  screen_ppi = models.CharField(max_length=32, null=True)
+  lock_screen_ppi = models.BooleanField(default=False)
+  screen_character = models.CharField(max_length=32, null=True)
+  lock_screen_character = models.BooleanField(default=False)
+  camera = models.CharField(max_length=32, null=True)
+  lock_camera = models.BooleanField(default=False)
+  battery_life = models.CharField(max_length=32, null=True)
+  lock_battery_life = models.BooleanField(default=False)
+  size = models.CharField(max_length=32, null=True)
+  lock_size = models.BooleanField(default=False)
+  weight = models.CharField(max_length=32, null=True)
+  lock_weight = models.BooleanField(default=False)
+
+  def save_to_db(self):
+    find = SmtProductPad.objects.filter(fullname=self.fullname)
+    if None != find and len(find) > 0:
+        node = find[0]
+        self.id = node.id
+        if True == node.lock_name:
+            self.name = node.name
+        if True == node.lock_company:
+            self.company = node.company
+        if True == node.lock_nametype:
+            self.nametype = node.nametype
+        if True == node.lock_saletime:
+            self.saletime = node.saletime
+        if True == node.lock_system:
+            self.system = node.system
+        if True == node.lock_system_version:
+            self.system_version = node.system_version
+        if True == node.lock_cpu:
+            self.cpu = node.cpu
+        if True == node.lock_cpu_frequency:
+            self.cpu_frequency = node.cpu_frequency
+        if True == node.lock_gpu:
+            self.gpu = node.gpu
+        if True == node.lock_gpucores:
+            self.gpucores = node.gpucores
+        if True == node.lock_memory:
+            self.memory = node.memory
+        if True == node.lock_storage:
+            self.storage = node.storage
+        if True == node.lock_storage_ext:
+            self.storage_ext = node.storage_ext
+        if True == node.lock_screen_size:
+            self.screen_size = node.screen_size
+        if True == node.lock_screen_resolution:
+            self.screen_resolution = node.screen_resolution
+        if True == node.lock_screen_ppi:
+            self.screen_ppi = node.screen_ppi
+        if True == node.lock_camera:
+            self.camera = node.camera
+        if True == node.lock_battery_life:
+            self.battery_life = node.battery_life
+        if True == node.lock_size:
+            self.size = node.size
+        if True == node.lock_weight:
+            self.weight = node.weight
+    
+    try:
+        self.save()
+        print '------',self.fullname, 'save ok------'
+    except:
+        print '------ERROR:',self.fullname,'save fail------'
+
+  def __unicode__(self):
+    return self.name
+
+
 

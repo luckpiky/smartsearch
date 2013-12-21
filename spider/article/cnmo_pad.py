@@ -14,7 +14,7 @@ from lib.htmlproc import *
 from spider.article.a_template import *
 
 class ArticleCnmoPad(ArticleTemplate):
-  site = '手机中国'
+  site = '鎵嬫満涓浗'
   atype = 'androidpad'
   vcodec = 'gbk'
 

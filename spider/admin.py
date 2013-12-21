@@ -12,6 +12,10 @@ class ArticleListAdmin(admin.ModelAdmin):
 class ArticleControlListAdmin(admin.ModelAdmin):
   list_display = ('id', 'article', 'control', 'arg1', 'arg2', 'arg3', 'arg4')
 
+class ProductCompanyListAdmin(admin.ModelAdmin):
+  list_display = ('id', 'name')
+
 admin.site.register(SmtArticleType, ArticleTypeAdmin)
 admin.site.register(SmtArticle, ArticleListAdmin)
 admin.site.register(SmtArticleControl, ArticleControlListAdmin)
+admin.site.register(SmtCompany, ProductCompanyListAdmin)

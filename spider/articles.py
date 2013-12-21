@@ -13,6 +13,8 @@ from django.template.loader import get_template
 from django.template import Context
 from config.settings import *
 
+from spider.product.zol_pad_list import *
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -41,7 +43,7 @@ class Article():
     article.title = title.encode('utf-8')
     article.url = url
     article.content = content 
-    article.site = node.site.decode('gbk')
+    article.site = node.site
     article.pic = getFirstPicture(content)
     article.description = getContentDescription(article.content, self.MAX_DESCRIPTION)
     article.save()
@@ -108,7 +110,7 @@ class Article():
     for a in articles:
       for tnode in self.node_list:
         tnode = tnode[1]
-        if tnode.site.decode('gbk') == a.site:
+        if tnode.site == a.site:
           content = tnode.getArticleContent(a.url)
           a.content = content
           a.description = getContentDescription(content, self.MAX_DESCRIPTION)
@@ -187,8 +189,7 @@ class ArticleHtmlProc():
       filename = STATIC_ROOT + file_name_pre + str(page) + '.html'
       
       t = get_template('articles_list.html')
-      html = t.render(Context({'articles':articles, 'pages':pages, 'first_page':first_page, 'pre_page':pre_page, 'next_page':next_page, 'last_page':last_page}))
-      
+      html = t.render(Context({'articles':articles, 'pages':pages, 'first_page':first_page, 'pre_page':pre_page, 'next_page':next_page, 'last_page':last_page, 'list_type':list_type}))
       self.writeFile(filename, html)
 
     return
@@ -217,16 +218,15 @@ def createArticleNode():
   a = Article()
   zol_pad = ArticleZolPad()
   zol_pad.setBaseUrl("http://pad.zol.com.cn/more/2_1531.shtml")
-  a.register('zolpad', zol_pad)
+  a.register('zolpad_article', zol_pad)
   
   pconline_pad = ArticlePconlinePad()
   pconline_pad.setBaseUrl("http://pad.pconline.com.cn/reviews/");
-  a.register('pconlinepad', pconline_pad)
+  a.register('pconlinepad_article', pconline_pad)
 
   cnmo_pad = ArticleCnmoPad()
   cnmo_pad.setBaseUrl("http://pad.cnmo.com/list_50_52_0_1.html");
-  a.register('cnmopad', cnmo_pad)
-
+  a.register('cnmopad_article', cnmo_pad)
 
   return a
 
@@ -250,4 +250,38 @@ def get_article_htmls(operation):
 
 def renew_articles():
   a = createArticleNode()
-  a.renewArticles()
+  a.renewArticles() 
+
+
+def createProductParseNode():
+  #a = Article()
+  #zol_pad = ArticleZolPad()
+  #zol_pad.setBaseUrl("http://detail.zol.com.cn/tablepc/")
+  #a.register('zolpad_product', zol_pad)
+  
+  return a
+
+
+def get_product_list():
+  node = ProductZolPad()
+  node.setBaseUrl("http://detail.zol.com.cn/tablepc/")
+
+  tmp_url = node.url
+  while(tmp_url):
+    lst = node.getArticleList(tmp_url)
+    for item in lst:
+      print item[0],item[1]
+      page_url = urljoin(node.url, item[1])
+      node.getArticleContent(item[0] , page_url)
+    
+    #get next list page
+    tmp = node.getNextListPage(tmp_url)
+    if None != tmp:
+      tmp_url = urljoin(node.url, tmp)
+      print 'next page:',tmp_url
+    else:
+      tmp_url = None
+
+
+  return
+

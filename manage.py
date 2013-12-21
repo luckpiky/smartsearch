@@ -27,6 +27,9 @@ if __name__ == "__main__":
       from spider.articles import *
       renew_articles()
       print 'aa'
+    elif 'get_product' == sys.argv[1]:
+      from spider.articles import *
+      get_product_list()
     else:
       execute_from_command_line(sys.argv)
     

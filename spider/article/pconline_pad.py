@@ -14,7 +14,7 @@ from lib.htmlproc import *
 from spider.article.a_template import *
 
 class ArticlePconlinePad(ArticleTemplate):
-  site = '太平洋电脑网'
+  site = '澶钩娲嬬數鑴戠綉'
   atype = 'androidpad'
 
   #find the article list from page
@@ -69,12 +69,12 @@ class ArticlePconlinePad1():
         self.delay = 0
         self.page = ""
         self.vcodec = "gbk"
-        self.site = '太平洋电脑网'
+        self.site = '太平????????'
         self.iname = 'androidpad'
         return
 
-    # 获取列表页上的文章标题和url
-    # 返回值:newslist   [[title, url]]
+    # ??取?斜?页?系????卤?????url
+    # ????值:newslist   [[title, url]]
     def getNewsList(self):
         count = 0
         newslist = []
@@ -91,7 +91,7 @@ class ArticlePconlinePad1():
                 pass
         return newslist
 
-    # 获取下一个列表页
+    # ??取??一???斜?页
     def getNextPage(self):
         soup = BeautifulSoup(self.page)
         tmp = soup.find('a', {'class':'next'})
@@ -101,7 +101,7 @@ class ArticlePconlinePad1():
             return tmp.attrs[0][1]
         return None
 
-    # 获取文章页的下一页
+    # ??取????页????一页
     def getNewsContentNextPage(self, page):
         soup = BeautifulSoup(page)
         tmp1 = soup.find('div', {'class':'pconline_page pageLast'})
@@ -119,7 +119,7 @@ class ArticlePconlinePad1():
             return None
         return None
 
-    # 获取文章页的内容
+    # ??取????页??????
     def __getNewsContent(self, url):
         next_url = ""
         content = ""

@@ -14,19 +14,38 @@ from BeautifulSoup import *
 
 from lib.htmlproc import *
 from spider.article.a_template import *
+from spider.models import *
+from lib.smartscript import *
 
 
-class ArticleZolPad(ArticleTemplate):
-  site = 'ÖĞ¹Ø´åÔÚÏß'
-  atype = 'androidpad'
+system_list = ['iOS', 'Windows', 'Android', 'Linux']
+company_list = SmtCompany.objects.all()
+
+
+def get_str_by_soup(soup):
+    node = soup
+    while None != node:
+        if None != node.string:
+            return node.string
+            break
+        node = node.next
+
+
+class ProductZolPad(ArticleTemplate):
+  site = 'ä¸­å…³æ‘åœ¨çº¿'
+  atype = 'andoridpad'
 
   #find the article list from page
   def findArticleListPage(self, soup):
-    return soup.findAll('dl', {'class':'nl_hd clearfix'})
+    return soup.findAll('div',{'class':'pro-intro'})
 
   #parse the one article item that from list, [url, title]
   def parseArticleListItem(self, item_soup):
-    item = [unicode(item_soup.dd.h4.a.string), item_soup.dd.h4.a['href']]
+    #print item_soup
+    print item_soup.h3.a.string
+    t = item_soup.find('a', {'class':'more'})
+    print t['href']
+    item = [unicode(item_soup.h3.a.string), t['href']]
     return item
 
   #find the page
@@ -35,91 +54,116 @@ class ArticleZolPad(ArticleTemplate):
 
   #find next article content page
   def findNextArticlePage(self, soup):
-    return soup.find('a', {'class':'bottom'})
+    return None
 
   #find article content
   def findArticleContent(self, soup):
-    return soup.find('div', {'id':'cotent_idd'})
+    return None
   
+  #get article content
+  def getArticleContent(self, name, url):
+    page = urllib.urlopen(url).read().decode(self.vcodec)
+    if None == page or '' == page:
+      return None
+    soup = BeautifulSoup(page)
+    product = SmtProductPad()
+
+    product.url = url
+
+    name = name.strip() #å»é™¤ç©ºæ ¼
+    print 'name:', name
+    product.fullname = name
+    for company_s in company_list:
+        company = company_s.name
+        product.company_id = company_s.id
+        if -1 != name.find(company):
+            print 'company:',company
+            i_type = name.find('ï¼ˆ')
+            if -1 != i_type:
+                print 'name:',name[len(company):i_type].strip()
+                print 'type:',name[i_type:]
+                product.name = name[len(company):i_type].strip()
+                product.nametype = name[i_type:].strip()
+            else:
+                print 'name:',name[len(company):]
+                product.name = name[len(company):].strip()
+
+    for i in range(1,10):
+      value_key = 'oldPmVal_' + str(i)
+      name_key = 'oldPmName_' + str(i)
+      t = soup.find('span', {'id':value_key})
+      t2 = soup.find('th', {'id':name_key})
+      if None == t or '' == t or None == t2 or '' == t2:
+        print "NONE"
+        continue
+      #print name_key, get_str_by_soup(t2)
+      #print value_key,get_str_by_soup(t)
+      value = get_str_by_soup(t).strip()
+      name = get_str_by_soup(t2).strip()
+      if 'ä¸Šå¸‚æ—¶é—´' == name:
+          print name,value
+          product.saletime = value
+      if 'æ“ä½œç³»ç»Ÿ' == name:
+          print name,value
+          for system_name in system_list:
+              if -1 !=  value.find(system_name):
+                  print 'system:',system_name
+                  product.system = system_name
+                  if len(value) > len(system_name):
+                      product.system_version = value[len(system_name):(len(value))].strip()
+                      print 'system_version:',product.system_version
+      if 'å¤„ç†å™¨å‹å·' == name:
+          print name,value
+          product.cpu = value
+      if 'å¤„ç†å™¨æ ¸å¿ƒ' == name:
+          print name,value
+          product.cpucores = value
+      if 'å¤„ç†å™¨ä¸»é¢‘' == name:
+          print name,value
+          product.cpu_frequency = value
+      if 'æ˜¾å¡æ ¸å¿ƒ' == name:
+          print name,value
+          product.gpucores = value
+      if 'ç³»ç»Ÿå†…å­˜' == name:
+          print name,value
+          product.memory = value
+      if 'å­˜å‚¨å®¹é‡' == name:
+          print name,value
+          product.storage = value
+      if 'å­˜å‚¨æ‰©å±•' == name:
+          print name,value
+          product.storage_ext = value
+      if 'å±å¹•å°ºå¯¸' == name:
+          print name,value
+          product.screen_size = value
+      if 'å±å¹•åˆ†è¾¨ç‡' == name:
+          print name,value
+          product.screen_resolution = value
+      if 'å±å¹•åƒç´ å¯†åº¦' == name:
+          print name,value
+          product.screen_ppi = value
+      if 'å±å¹•ç‰¹æ€§' == name:
+          print name,value
+          product.screen_character = value
+      if 'æ‘„åƒå¤´' == name:
+          print name,value
+          product.camera = value
+      if 'ç»­èˆªæ—¶é—´' == name:
+          print name,value
+          product.battery_life = value
+      if 'äº§å“å°ºå¯¸' == name:
+          print name,value
+          product.size = value
+      if 'äº§å“é‡é‡' == name:
+          print name,value
+          product.weight = value
+    
+    product.save_to_db()
+
+    return None
+      
 
 
-
-
-url = ""
-class ArticleZolPad1():
-    def __init__(self):
-        self.url = 'http://pad.zol.com.cn/more/2_1531.shtml'
-        self.content = ""
-        self.article_list = []
-        self.delay = 0
-        self.page = ""
-        self.vcodec = "gbk"
-        self.site = 'ÖĞ¹Ø´åÔÚÏß'
-        self.iname = 'androidpad'
-        return
-
-    # »ñÈ¡ÁĞ±íÒ³ÉÏµÄÎÄÕÂ±êÌâºÍurl
-    # ·µ»ØÖµ:newslist   [[url, title]]
-    def getNewsList(self):
-        count = 0
-        newslist = []
-        soup = BeautifulSoup(self.page)
-        tmp1 = soup.findAll('dl', {'class':'nl_hd clearfix'})
-        for item in tmp1:
-            news = BeautifulSoup(str(item))
-            tmp = [unicode(news.dd.h4.a.string), news.dd.h4.a['href']]
-            self.article_list.append(tmp)
-            newslist.append(tmp)
-            count = count + 1
-        return newslist
-
-
-    # »ñÈ¡ÏÂÒ»¸öÁĞ±íÒ³
-    def getNextPage(self):
-        soup = BeautifulSoup(self.page)
-        tmp = soup.find('a', {'class':'next'})
-        if None != tmp:
-            if 'href' != tmp.attrs[0][0]:
-                return None
-            return tmp.attrs[0][1]
-        return None
-
-    # »ñÈ¡ÎÄÕÂÒ³µÄÏÂÒ»Ò³
-    def getNewsContentNextPage(self, page):
-        soup = BeautifulSoup(page)
-        tmp1 = soup.find('a', {'class':'bottom'})
-        if None == tmp1:
-            return None
-        return urljoin(self.url, tmp1['href'])
-
-    # »ñÈ¡ÎÄÕÂÒ³µÄÄÚÈİ
-    def __getNewsContent(self, url):
-        next_url = ""
-        content = ""
-        page = urllib.urlopen(url).read().decode('gbk')
-        soup = BeautifulSoup(page)
-        tmp1 = soup.find('div', {'id':'cotent_idd'})
-
-        if None == tmp1:
-            return None
-
-        next_url = self.getNewsContentNextPage(page)
-        if None != next_url and '' != next_url:
-            print 'read content url:',next_url
-            content = content + self.getNewsContent(next_url)
-            #content = formatUrl(tmp1.__str__('gbk'), url) + content
-        #content = removeUrls(tmp1.__str__('gbk')) + content
-        if None != tmp1 and '' != tmp1:
-            content = tmp1.__str__() + content
-            #return tmp1.__str__('gbk')
-        return content
-
-    def getNewsContent(self, url):
-        content = self.__getNewsContent(url)
-        content = getPNode(content)
-        content = removeUrls(content)
-        content = formatImg(content)
-        return content
 
 
 

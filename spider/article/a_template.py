@@ -47,6 +47,7 @@ class ArticleTemplate():
   # get article list's article's url and title
   # return:article_list [[url, title]]
   def getArticleList(self, cur_url):
+    article_lst = []
     page = urllib.urlopen(cur_url).read().decode(self.vcodec)
 
     #find the list content
@@ -61,11 +62,11 @@ class ArticleTemplate():
         if None == tmp:
           continue
         #add to article_list
-        self.article_list.append(tmp)
+        article_lst.append(tmp)
       except:
         pass
 
-    return self.article_list
+    return article_lst
 
   #find the page
   def findNextPage(self, soup):

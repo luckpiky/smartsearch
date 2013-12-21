@@ -1,0 +1,79 @@
+# coding=utf-8 #
+
+import re
+import urllib
+import string
+import os
+import time
+import sys
+import codecs
+
+from urlparse import *
+
+from BeautifulSoup import * 
+
+from lib.htmlproc import *
+from spider.article.a_template import *
+
+def get_str_by_soup(soup):
+    node = soup
+    while None != node:
+        if None != node.string:
+            print "g:",node.string
+            break
+        node = node.next
+
+
+class ProductZolPad(ArticleTemplate):
+  site = '中关村在线'
+  atype = 'andoridpad'
+
+  #find the article list from page
+  def findArticleListPage(self, soup):
+    return soup.findAll('div',{'class':'pro-intro'})
+
+  #parse the one article item that from list, [url, title]
+  def parseArticleListItem(self, item_soup):
+    #print item_soup
+    print item_soup.h3.a.string
+    t = item_soup.find('a', {'class':'more'})
+    print t['href']
+    item = [unicode(item_soup.h3.a.string), t['href']]
+    return item
+
+  #find the page
+  def findNextPage(self, soup):
+    return soup.find('a', {'class':'next'})
+
+  #find next article content page
+  def findNextArticlePage(self, soup):
+    return None
+
+  #find article content
+  def findArticleContent(self, soup):
+    return None
+  
+  #get article content
+  def getArticleContent(self, url):
+    page = urllib.urlopen(url).read().decode(self.vcodec)
+    if None == page or '' == page:
+      return None
+    soup = BeautifulSoup(page)
+
+    for i in range(1,10):
+      key = 'oldPmVal_' + str(i)
+      print key
+      t = soup.find('span', {'id':key})
+      if None == t or '' == t:
+        print "NONE"
+        continue
+      print 'aa',t, t.string
+      get_str_by_soup(t)
+    return None
+      
+
+
+
+
+
+

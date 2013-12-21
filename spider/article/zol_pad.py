@@ -17,7 +17,7 @@ from spider.article.a_template import *
 
 
 class ArticleZolPad(ArticleTemplate):
-  site = 'ÖĞ¹Ø´åÔÚÏß'
+  site = 'ä¸­å…³æ‘åœ¨çº¿'
   atype = 'androidpad'
 
   #find the article list from page
@@ -54,12 +54,12 @@ class ArticleZolPad1():
         self.delay = 0
         self.page = ""
         self.vcodec = "gbk"
-        self.site = 'ÖĞ¹Ø´åÔÚÏß'
+        self.site = '?Ğ¹Ø´?????'
         self.iname = 'androidpad'
         return
 
-    # »ñÈ¡ÁĞ±íÒ³ÉÏµÄÎÄÕÂ±êÌâºÍurl
-    # ·µ»ØÖµ:newslist   [[url, title]]
+    # ??È¡?Ğ±?Ò³?Ïµ????Â±?????url
+    # ????Öµ:newslist   [[url, title]]
     def getNewsList(self):
         count = 0
         newslist = []
@@ -74,7 +74,7 @@ class ArticleZolPad1():
         return newslist
 
 
-    # »ñÈ¡ÏÂÒ»¸öÁĞ±íÒ³
+    # ??È¡??Ò»???Ğ±?Ò³
     def getNextPage(self):
         soup = BeautifulSoup(self.page)
         tmp = soup.find('a', {'class':'next'})
@@ -84,7 +84,7 @@ class ArticleZolPad1():
             return tmp.attrs[0][1]
         return None
 
-    # »ñÈ¡ÎÄÕÂÒ³µÄÏÂÒ»Ò³
+    # ??È¡????Ò³????Ò»Ò³
     def getNewsContentNextPage(self, page):
         soup = BeautifulSoup(page)
         tmp1 = soup.find('a', {'class':'bottom'})
@@ -92,7 +92,7 @@ class ArticleZolPad1():
             return None
         return urljoin(self.url, tmp1['href'])
 
-    # »ñÈ¡ÎÄÕÂÒ³µÄÄÚÈİ
+    # ??È¡????Ò³??????
     def __getNewsContent(self, url):
         next_url = ""
         content = ""
