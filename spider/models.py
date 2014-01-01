@@ -52,16 +52,33 @@ class SmtCompany(models.Model):
 
 #cpu
 class SmtCpu(models.Model):
-  name = models.CharField(max_length=64)
-  cpu_cores = models.CharField(max_length=32)
-  cpu_frequency = models.CharField(max_length=32)
-  gpu = models.CharField(max_length=32, null=True)
-  gpu_cores = models.CharField(max_length=32, null=True)
-  gpu_frequency = models.CharField(max_length=32, null=True)
-  sale_time = models.CharField(max_length=64, null=True)
+  fullname = models.CharField(max_length=64)
+  name = models.CharField(max_length=32, default="", null=True)
+  company = models.CharField(max_length=64, default="0", null=True)
+  craft = models.CharField(max_length=32, default="0", null=True)
+  cpu_cores = models.CharField(max_length=32,default="0", null=True)
+  cpu_frequency = models.CharField(max_length=32, default="0", null=True)
+  gpu = models.CharField(max_length=32, default="0", null=True)
+  gpu_cores = models.CharField(max_length=32, default="0", null=True)
+  gpu_frequency = models.CharField(max_length=32, default="0", null=True)
+  sale_time = models.CharField(max_length=64, default="0", null=True)
+  url = models.CharField(max_length=255, default="", null=True)
+  products = models.IntegerField(default=0)
 
   def __unicode__(self):
       return self.name
+
+  def save_to_db(self):
+      cpu = SmtCpu.objects.filter(fullname=self.fullname)
+      if None != cpu and 0 < len(cpu):
+          cpu = cpu[0]
+          cpu.products = self.products
+          cpu.save()
+          print "update cpu"
+      else:
+          self.save()
+          print "save cpu"
+      return
 
 
 #product
@@ -167,6 +184,3 @@ class SmtProductPad(models.Model):
 
   def __unicode__(self):
     return self.name
-
-
-

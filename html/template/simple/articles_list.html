@@ -81,7 +81,7 @@
 	  {% endfor %}
 	</div>
 	<div align="center">
-    <a href="article_list_{{first_page}}.html">首页</a> <a href="article_list_{{list_type}}_{{pre_page}}.html">上一页</a> {% for page_index in pages %}<a href="article_list_{{list_type}}_{{page_index}}.html">{{page_index}}</a> {% endfor %}<a href="article_list_{{list_type}}_{{next_page}}.html">下一页</a> <a href="article_list_{{list_type}}_{{last_page}}.html">末页</a> 
+    <a href="article_list_{{first_page}}.html">首页</a> <a href="article_list_{{list_type}}_{{pre_page}}.html">上一页</a> {% for page_index in pages %}<a href="{{file_name_pre}}{{page_index}}.html">{{page_index}}</a> {% endfor %}<a href="{{file_name_pre}}{{next_page}}.html">下一页</a> <a href="article_list_{{list_type}}_{{last_page}}.html">末页</a> 
 	</div>
 	<div><hr /></div>
   <div align="center">

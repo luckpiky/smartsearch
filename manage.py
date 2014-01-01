@@ -30,6 +30,13 @@ if __name__ == "__main__":
     elif 'get_product' == sys.argv[1]:
       from spider.articles import *
       get_product_list()
+    elif 'get_cpu' == sys.argv[1]:
+      from spider.products import *
+      cpu = Product()
+      cpu.getCpuList()
+      cpu.getProduct()
+    elif 'get_cpu_product' == sys.argv[1]:
+      from spider.products import *
     else:
       execute_from_command_line(sys.argv)
     

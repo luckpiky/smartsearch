@@ -189,7 +189,7 @@ class ArticleHtmlProc():
       filename = STATIC_ROOT + file_name_pre + str(page) + '.html'
       
       t = get_template('articles_list.html')
-      html = t.render(Context({'articles':articles, 'pages':pages, 'first_page':first_page, 'pre_page':pre_page, 'next_page':next_page, 'last_page':last_page, 'list_type':list_type}))
+      html = t.render(Context({'articles':articles, 'pages':pages, 'first_page':first_page, 'pre_page':pre_page, 'next_page':next_page, 'last_page':last_page, 'file_name_pre':file_name_pre}))
       self.writeFile(filename, html)
 
     return

@@ -119,7 +119,9 @@ class ArticleTemplate():
     next_url = self.getNextArticlePage(url, page)
     if None != next_url and '' != next_url:
       print 'read content url:',next_url
-      content = content + self.getArticleContent(next_url)
+      content_tmp = self.getArticleContent(next_url)
+      if None != content_tmp:
+        content = content + content_tmp
     if None != tmp1 and '' != tmp1:
       content = tmp1.__str__() + content
 
